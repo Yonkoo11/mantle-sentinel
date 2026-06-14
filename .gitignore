@@ -44,3 +44,15 @@ venv/
 
 # Local deployment artifacts that may carry operator addresses
 deployments/local-*.json
+
+# Python
+agent/.venv/
+agent/reports/
+__pycache__/
+*.pyc
+
+# Foundry
+contracts/out/
+contracts/cache/
+contracts/broadcast/
+contracts/lib/

@@ -1,0 +1,5 @@
+# On-chain writes + hashing for the auditor pipeline.
+# Slither / solc are invoked as external binaries (install separately: pip install slither-analyzer).
+web3>=6.15,<8
+eth-account>=0.11
+eth-utils>=2.3

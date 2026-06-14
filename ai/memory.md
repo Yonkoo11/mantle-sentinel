@@ -5,7 +5,7 @@ Core Action: Paste a real Mantle contract address → the AI auditor agent retur
 Success Test: One known-vulnerable Mantle testnet contract → agent flags the real bug with correct line number, and a verifiable attestation tx appears on Mantle Explorer (Sepolia testnet).
 Min Tech: LLM audit pass over Solidity source + ethers/viem to write one attestation call on Mantle testnet + a contract that stores the verdict.
 NOT Phase 1: ERC-8004 full reputation scoring, web UI polish, multi-contract batch, false-positive tuning, gas optimizer, paid tiers, mainnet.
-Status: [ ] NOT STARTED
+Status: [x] PASSED 2026-06-14 (registry 0xbCE17E7..., target 0x469C464..., tx 0x3c5212...)
 
 ## Hackathon Context
 - Event: Mantle Turing Test Hackathon 2026 — "AI Awakening" (Phase 2)
