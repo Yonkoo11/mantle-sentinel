@@ -1,4 +1,4 @@
-# Mantle Agent Auditor — Memory
+# Mantle Sentinel — Memory
 
 ## Phase 1 Gate (MUST PASS BEFORE ANY OTHER WORK)
 Core Action: Paste a real Mantle contract address → the AI auditor agent returns at least one true vulnerability with a line number AND writes a pass/fail security attestation transaction on Mantle testnet.
@@ -24,7 +24,7 @@ Status: [x] PASSED 2026-06-14 (registry 0xbCE17E7..., target 0x469C464..., tx 0x
 - Product Completeness 20% (runnable demo, UX, scalability)
 
 ## Chosen Idea
-Mantle Agent Auditor: an AI agent that audits any Mantle contract address, finds vulnerabilities,
+Mantle Sentinel: an AI agent that audits any Mantle contract address, finds vulnerabilities,
 and writes a signed pass/fail security attestation on-chain bound to the contract's ERC-8004 agent
 identity. Gives autonomous trading/RWA agents a portable, verifiable on-chain safety reputation that
 users can check before delegating funds. Sits at the trust layer the whole "Human vs AI" benchmark needs.

@@ -1,9 +1,9 @@
-# Progress — Mantle Agent Auditor
+# Progress — Mantle Sentinel
 
 ## Status: Phase 1 PASSED + deep ERC-8004 integration live + public demo shipped
 
-LIVE DEMO: https://yonkoo11.github.io/mantle-agent-auditor/
-REPO: https://github.com/Yonkoo11/mantle-agent-auditor
+LIVE DEMO: https://yonkoo11.github.io/mantle-sentinel/
+REPO: https://github.com/Yonkoo11/mantle-sentinel
 
 ### Deployed on Mantle Sepolia (chain 5003)
 - AuditAttestationRegistry: `0xbCE17E724c0Cd038622a9C4299F86Caf411C1Fae`

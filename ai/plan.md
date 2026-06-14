@@ -1,4 +1,4 @@
-# Build Plan — Mantle Agent Auditor
+# Build Plan — Mantle Sentinel
 
 **Pitch:** AI auditor for on-chain agents. Paste a Mantle contract → AI + static analysis find
 vulnerabilities → a pass/fail security verdict is written on-chain AND bound to the contract's
@@ -107,7 +107,7 @@ viem/ethers in the static frontend for wallet + read calls. License MIT.
 
 **Task 7 — Ship artifacts:** README (setup, architecture, deployed address), MIT LICENSE, ≥2min demo video.
 
-Then Phase 4 polish: `/design mantle-agent-auditor`, `/demo-video`, `/submit`.
+Then Phase 4 polish: `/design mantle-sentinel`, `/demo-video`, `/submit`.
 
 ---
 

@@ -26,7 +26,7 @@ Full playbook: `SECURITY.md`. Read it before any deploy or signing work.
 
 ---
 
-## Project: Mantle Agent Auditor
+## Project: Mantle Sentinel
 
 **Pitch:** AI auditor for on-chain agents. Paste a Mantle contract address → AI finds vulnerabilities →
 writes a signed pass/fail security attestation on-chain, bound to the contract's ERC-8004 agent identity.
@@ -42,7 +42,7 @@ Status: NOT STARTED. No UI/CSS until this passes.
 1. Core action end-to-end (audit → on-chain attestation written + readable)
 2. Data flows (real contract source in, real verdict on-chain)
 3. Product complete (public frontend, demo video, README, LICENSE)
-4. Visual polish LAST (`/design mantle-agent-auditor`)
+4. Visual polish LAST (`/design mantle-sentinel`)
 
 ### Hackathon Context
 - Mantle Turing Test Hackathon 2026 — AI DevTools track (Tencent Cloud) + Grand Champion + 20 Deployment Award

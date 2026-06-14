@@ -51,5 +51,5 @@ def register_agent(agent_uri: str) -> dict:
 
 
 if __name__ == "__main__":
-    uri = sys.argv[1] if len(sys.argv) > 1 else "https://mantle-agent-auditor.example/agent.json"
+    uri = sys.argv[1] if len(sys.argv) > 1 else "https://mantle-sentinel.example/agent.json"
     print(json.dumps(register_agent(uri), indent=2))

@@ -41,7 +41,7 @@ def build_report(target: str, source_name: str, findings: List[Dict],
     highest = max([SEVERITY.get(f["severity"], 0) for f in findings], default=0)
     passed = not any(f["severity"] in _BLOCKING for f in findings)
     return {
-        "schema": "mantle-agent-auditor/v1",
+        "schema": "mantle-sentinel/v1",
         "target": target.lower(),
         "sourceName": source_name,
         "erc8004AgentId": erc8004_agent_id,

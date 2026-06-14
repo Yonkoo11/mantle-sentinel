@@ -1,4 +1,4 @@
-# Fix Plan — Mantle Agent Auditor
+# Fix Plan — Mantle Sentinel
 
 Phase 1 Gate: paste a Mantle contract address → AI returns ≥1 true vulnerability with line number
 AND writes a security attestation tx on Mantle testnet. Build these in order.

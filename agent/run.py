@@ -1,4 +1,4 @@
-"""Mantle Agent Auditor — orchestrator.
+"""Mantle Sentinel — orchestrator.
 
 Usage:
   python run.py --file samples/VulnerableVault.sol --target 0x<addr> [--agent-id N] [--attest]

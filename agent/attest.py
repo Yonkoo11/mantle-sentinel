@@ -106,7 +106,7 @@ def write_attestation(target: str, passed: bool, vuln_count: int, highest_severi
             r2 = _send(w3, acct, rep.functions.giveFeedback(
                 erc8004_agent_id, score, 0, "security-audit",
                 "critical" if highest_severity >= 5 else "high" if highest_severity == 4 else "ok",
-                "mantle-agent-auditor", ipfs_cid or "", rh), nonce)
+                "mantle-sentinel", ipfs_cid or "", rh), nonce)
             rep_hash = _txhash_hex(r2)
             result["reputationTx"] = rep_hash
             result["reputationTxUrl"] = EXPLORER_TX + rep_hash
