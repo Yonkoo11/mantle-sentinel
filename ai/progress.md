@@ -44,3 +44,15 @@ not a mock.
 - LLM (Tencent) pass is written but UNTESTED live — no API key yet. Current verdicts are Slither-only.
 - Registry source not yet verified on the explorer (cosmetic; contract works).
 - ERC-8004 giveFeedback verified live (agent 186). Note: registry blocks self-feedback, so the auditor key must differ from the audited agent's owner (correct real-world case).
+
+### Autonomous batch (2026-06-14, later)
+What Changed (Plain English): The site now has a name + icon that show up nicely when shared, and the
+verdict screen colors the severity (red for high, amber for medium). I also wrote the full submission
+writeup and a 2-minute demo-video script so recording is just reading along. The "verified source" badge
+on the explorer is still blocked by Mantle's explorer being down — I left a one-tap retry (contracts/verify.sh).
+- [x] UI polish: OG/Twitter share tags, favicon, severity color-coding (committed, live)
+- [x] Submission writeup drafted (ai/submission.md)
+- [x] Demo-video script drafted (ai/demo-script.md)
+- [ ] Explorer verification: STILL 503 (Mantle Blockscout down). Retry: bash contracts/verify.sh
+- [ ] Tencent Hunyuan key: still needs user signup
+- [ ] Record demo video; run /submit
