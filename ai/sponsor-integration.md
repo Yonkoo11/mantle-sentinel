@@ -1,4 +1,4 @@
-# Sponsor Integration Depth — Mantle Sentinel
+# Sponsor Integration Depth — Sentinel
 
 ## SPONSOR: Mantle (chain + ERC-8004 + AI x RWA infra)
 Track prize: Grand Champion (25% Mantle Ecosystem Contribution) + AI DevTools nomination

@@ -1,4 +1,4 @@
-// Mantle Sentinel — read-only frontend. Reads live verdicts straight from the registry on
+// Sentinel — read-only frontend. Reads live verdicts straight from the registry on
 // Mantle Sepolia via a public RPC. No backend, no wallet needed to view a verdict.
 
 const RPC = "https://rpc.sepolia.mantle.xyz";

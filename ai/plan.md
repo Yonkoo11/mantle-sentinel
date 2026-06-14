@@ -1,4 +1,4 @@
-# Build Plan — Mantle Sentinel
+# Build Plan — Sentinel
 
 **Pitch:** AI auditor for on-chain agents. Paste a Mantle contract → AI + static analysis find
 vulnerabilities → a pass/fail security verdict is written on-chain AND bound to the contract's

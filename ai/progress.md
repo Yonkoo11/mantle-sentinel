@@ -1,4 +1,4 @@
-# Progress — Mantle Sentinel
+# Progress — Sentinel
 
 ## Status: Phase 1 PASSED + deep ERC-8004 integration live + public demo shipped
 

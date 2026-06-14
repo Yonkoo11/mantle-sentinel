@@ -26,7 +26,7 @@ Full playbook: `SECURITY.md`. Read it before any deploy or signing work.
 
 ---
 
-## Project: Mantle Sentinel
+## Project: Sentinel
 
 **Pitch:** AI auditor for on-chain agents. Paste a Mantle contract address → AI finds vulnerabilities →
 writes a signed pass/fail security attestation on-chain, bound to the contract's ERC-8004 agent identity.

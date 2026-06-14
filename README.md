@@ -1,6 +1,6 @@
 # AI auditor for on-chain agents
 
-> **Mantle Sentinel**
+> **Sentinel** · [Live demo ↗](https://yonkoo11.github.io/mantle-sentinel/)
 
 Paste a Mantle contract. A hybrid engine (Slither static analysis + Tencent Hunyuan reasoning) finds
 the vulnerabilities, decides pass/fail, and writes the verdict **on-chain** — bound to the contract's
