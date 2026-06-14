@@ -1,5 +1,7 @@
 # AI auditor for on-chain agents
 
+> **Mantle Sentinel**
+
 Paste a Mantle contract. A hybrid engine (Slither static analysis + Tencent Hunyuan reasoning) finds
 the vulnerabilities, decides pass/fail, and writes the verdict **on-chain** — bound to the contract's
 **ERC-8004 agent identity**, so an autonomous agent's safety reputation travels with it.
