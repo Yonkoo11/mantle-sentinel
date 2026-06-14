@@ -1,6 +1,9 @@
 # Progress — Mantle Agent Auditor
 
-## Status: Phase 1 Gate PASSED (verified on-chain)
+## Status: Phase 1 PASSED + deep ERC-8004 integration live + public demo shipped
+
+LIVE DEMO: https://yonkoo11.github.io/mantle-agent-auditor/
+REPO: https://github.com/Yonkoo11/mantle-agent-auditor
 
 ### Deployed on Mantle Sepolia (chain 5003)
 - AuditAttestationRegistry: `0xbCE17E724c0Cd038622a9C4299F86Caf411C1Fae`
@@ -31,10 +34,11 @@ not a mock.
 ### Next
 - [ ] Verify registry source on Mantlescan/Blockscout (explorer API was 503; retry)
 - [x] ERC-8004 binding live test PASSED — giveFeedback bound verdict to agent 186; getSummary returns count=1, value=20, tag=security-audit (tx 0x5965c8...)
-- [ ] Public frontend (GitHub Pages): paste address -> verdict + tx links
+- [x] Public frontend LIVE on GitHub Pages (reads live verdicts from Mantle; read path verified)
 - [ ] Tencent Cloud Hunyuan: BLOCKED on user signup (HUNYUAN_API_KEY not set). LLM pass falls back to
       Slither-only and says so honestly until the key exists.
-- [ ] README + MIT LICENSE + 2-min demo video
+- [x] README + MIT LICENSE done. [ ] 2-min demo video (do near deadline)
+- [ ] Explorer source-verification: explorer.sepolia.mantle.xyz API returning 503 (their infra); retry. Contract works regardless.
 
 ### Honest gaps
 - LLM (Tencent) pass is written but UNTESTED live — no API key yet. Current verdicts are Slither-only.
