@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registry — Sentinel</title>
+  <meta name="description" content="Every security verdict Sentinel has written on Mantle, read live from the chain." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2l11 4v8c0 7-4.7 12.5-11 16C9.7 26.5 5 21 5 14V6z' fill='%235ef0c6'/%3E%3Cpath d='M11 16l4 4 7-8' stroke='%23061712' stroke-width='2.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg" aria-hidden="true"></div>
+
+  <header class="nav wrap">
+    <a class="brand" href="index.html"><span class="mark" aria-hidden="true"></span>Sentinel</a>
+    <nav class="nav-right">
+      <a href="index.html">Audit</a>
+      <a href="registry.html" class="active">Registry</a>
+      <a href="https://github.com/Yonkoo11/mantle-sentinel" target="_blank" rel="noopener">GitHub ↗</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <section class="reg-head">
+      <p class="eyebrow">On-chain · Mantle Sepolia</p>
+      <h1>The verdict registry.</h1>
+      <p class="lede">Every verdict Sentinel has written, read live from the chain. Permissionless to query —
+        any contract can call <code>isAttestedSafe(addr)</code> against this same registry.</p>
+      <div class="stats" id="stats">
+        <div class="stat"><span class="sv" id="s-total">—</span><span class="sl">contracts audited</span></div>
+        <div class="stat"><span class="sv" id="s-fail">—</span><span class="sl">failing</span></div>
+        <div class="stat"><span class="sv" id="s-bound">—</span><span class="sl">bound to ERC-8004</span></div>
+      </div>
+    </section>
+
+    <section class="reg-table-wrap">
+      <p id="reg-status" class="status loading" role="status" aria-live="polite">Reading the registry from Mantle…</p>
+      <table class="reg-table" id="reg-table" hidden>
+        <thead>
+          <tr><th>Grade</th><th>Contract</th><th>Verdict</th><th>Top severity</th><th>ERC-8004</th><th>Attested</th><th></th></tr>
+        </thead>
+        <tbody id="reg-body"></tbody>
+      </table>
+    </section>
+
+    <section class="dev">
+      <h2>Use a verdict in your own contract.</h2>
+      <p class="section-lede">The registry is composable. Gate any action on a passing Sentinel verdict —
+        one external call, no oracle, no backend.</p>
+      <pre class="snippet"><span class="cm">// Mantle Sepolia</span>
+<span class="kw">interface</span> <span class="fn">ISentinel</span> {
+  <span class="kw">function</span> <span class="fn">isAttestedSafe</span>(<span class="kw">address</span> target) <span class="kw">external view returns</span> (<span class="kw">bool</span>);
+}
+
+<span class="kw">address</span> constant SENTINEL = <span class="st">0xbCE17E724c0Cd038622a9C4299F86Caf411C1Fae</span>;
+
+<span class="kw">function</span> <span class="fn">onlyAudited</span>(<span class="kw">address</span> agent) <span class="kw">internal view</span> {
+  <span class="fn">require</span>(<span class="fn">ISentinel</span>(SENTINEL).<span class="fn">isAttestedSafe</span>(agent), <span class="st">"not audited safe"</span>);
+}</pre>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <span>Sentinel · Mantle Turing Test 2026</span>
+    <span><a href="https://github.com/Yonkoo11/mantle-sentinel" target="_blank" rel="noopener">open source (MIT)</a></span>
+  </footer>
+
+  <script src="vendor/ethers.umd.min.js"></script>
+  <script src="registry.js"></script>
+</body>
+</html>

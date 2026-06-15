@@ -56,3 +56,9 @@ on the explorer is still blocked by Mantle's explorer being down — I left a on
 - [ ] Explorer verification: STILL 503 (Mantle Blockscout down). Retry: bash contracts/verify.sh
 - [ ] Tencent Hunyuan key: still needs user signup
 - [ ] Record demo video; run /submit
+
+### Registry/explorer + dev surface (2026-06-15)
+What Changed (Plain English): Added a second page — a live Registry that lists every contract Sentinel has graded, read straight from the chain (a real A/PASS and two D/FAIL now show), plus a Developers section showing how any contract can use a verdict. Deployed 2 more real audit targets (SafeVault->PASS grade A, TxOriginVault->FAIL grade D) so the registry shows a true spread. Visually verified.
+- [x] docs/registry.html + registry.js (chunked on-chain event reads, dedupe latest-per-contract)
+- [x] nav links Audit/Registry/GitHub on both pages
+- [x] 2 more real verdicts on-chain for a believable registry
