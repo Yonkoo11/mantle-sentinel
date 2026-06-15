@@ -6,13 +6,13 @@ HERE = os.path.dirname(__file__)
 FRAMES, OUT = os.path.join(HERE, "frames"), os.path.join(HERE, "composites")
 os.makedirs(OUT, exist_ok=True)
 
+# MUST be verbatim-identical to the audio in generate-audio.sh. No em-dashes.
 CAPTIONS = {
-    "hook": "Paste any smart contract into Sentinel, and seconds later you get this. A security grade.",
-    "audit": "It runs two engines at once: Slither for static analysis, and an AI model for the logic bugs static tools miss. Here it caught a critical one — funds the owner could drain.",
-    "onchain": "The verdict doesn't sit in a database. It's written to Mantle, hashed so the grade is tamper-proof and anyone can verify it.",
-    "registry": "Every contract it has graded lives in one on-chain registry. Pass or fail, A through F, read straight from the chain.",
-    "dev": "Each verdict binds to the agent's ERC-8004 identity. One call — isAttestedSafe — lets your contract refuse to trust an agent that never passed.",
-    "cta": "Sentinel. The safety layer for on-chain agents.",
+    "money": "Paste a contract into Sentinel. Two engines grade it in seconds, Slither and an AI model. Here it flagged a critical bug. Funds the owner could drain.",
+    "onchain": "The verdict is written to Mantle. The report is hashed, so the grade is tamper-proof and anyone can verify it.",
+    "registry": "Every contract it grades lives in one on-chain registry. Pass or fail, A through F, read live from the chain.",
+    "composable": "Each grade binds to the agent's ERC-8004 identity. One call, isAttestedSafe, lets any contract refuse an agent that never passed.",
+    "close": "Sentinel. Audit any agent, and prove it on-chain.",
 }
 
 W = 1920

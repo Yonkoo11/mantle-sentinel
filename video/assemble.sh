@@ -6,7 +6,7 @@ COMP=composites; AUD=audio; SEGD=segments
 mkdir -p $SEGD
 setopt +o nomatch; rm -f $SEGD/*.mp4 concat.txt
 
-ORDER=(hook audit onchain registry dev cta)
+ORDER=(money onchain registry composable close)
 VFADE_IN=0.2; AUDIO_DELAY=0.5; BREATH=0.3; VFADE_OUT=0.2; GAP=0.3
 
 # silent black gap (built once, reused)
@@ -38,14 +38,19 @@ ffmpeg -y -f concat -safe 0 -i concat.txt \
   -c:v libx264 -preset fast -crf 20 -pix_fmt yuv420p -c:a aac -ar 48000 -b:a 192k "$SEGD/narration.mp4" -loglevel error
 
 vidlen=$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$SEGD/narration.mp4")
-mfo=$(python3 -c "print(round(${vidlen}-1.0,3))")
 
-# mix bg music at ~10% under the voiceover, fade out at the end
-ffmpeg -y -i "$SEGD/narration.mp4" -stream_loop -1 -i music/bg.mp3 -filter_complex "
-  [1:a]volume=0.10,afade=t=in:st=0:d=1,afade=t=out:st=${mfo}:d=1[m];
-  [0:a][m]amix=inputs=2:duration=first:dropout_transition=0[a]
-" -map 0:v -map "[a]" -t ${vidlen} \
-  -c:v copy -c:a aac -ar 48000 -b:a 192k "mantle-sentinel-demo.mp4" -loglevel error
+# Music is OFF by default (voiceover only reads more professional). Set MUSIC=1 to mix a bed.
+if [ "${MUSIC:-0}" = "1" ] && [ -s music/bg.mp3 ]; then
+  mfo=$(python3 -c "print(round(${vidlen}-1.0,3))")
+  ffmpeg -y -i "$SEGD/narration.mp4" -stream_loop -1 -i music/bg.mp3 -filter_complex "
+    [1:a]volume=0.10,afade=t=in:st=0:d=1,afade=t=out:st=${mfo}:d=1[m];
+    [0:a][m]amix=inputs=2:duration=first:dropout_transition=0[a]
+  " -map 0:v -map "[a]" -t ${vidlen} \
+    -c:v copy -c:a aac -ar 48000 -b:a 192k "mantle-sentinel-demo.mp4" -loglevel error
+else
+  # voiceover only, no music
+  cp "$SEGD/narration.mp4" "mantle-sentinel-demo.mp4"
+fi
 
 echo "=== final ==="
 ffprobe -v error -show_entries format=duration:stream=sample_rate -of default=noprint_wrappers=1 "mantle-sentinel-demo.mp4"

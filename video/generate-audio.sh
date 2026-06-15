@@ -7,14 +7,13 @@ VOICE="nPczCjzI2devNBz1zQrb"   # Brian
 MODEL="eleven_multilingual_v2"
 
 typeset -A CLIPS
-CLIPS[hook]="Paste any smart contract into Sentinel, and seconds later you get this. A security grade."
-CLIPS[audit]="It runs two engines at once. Slither for static analysis, and an AI model for the logic bugs static tools miss. Here it caught a critical one. Funds the owner could drain."
-CLIPS[onchain]="The verdict doesn't sit in a database. It's written to Mantle. The full report is hashed, so the grade is tamper-proof and anyone can verify it."
-CLIPS[registry]="Every contract it has graded lives in one on-chain registry. Pass or fail, A through F, read straight from the chain."
-CLIPS[dev]="Each verdict binds to the agent's ERC-8004 identity. So one call, isAttestedSafe, lets your contract refuse to trust an agent that never passed."
-CLIPS[cta]="Sentinel. The safety layer for on-chain agents. Try it at the link below."
+CLIPS[money]="Paste a contract into Sentinel. Two engines grade it in seconds, Slither and an AI model. Here it flagged a critical bug. Funds the owner could drain."
+CLIPS[onchain]="The verdict is written to Mantle. The report is hashed, so the grade is tamper-proof and anyone can verify it."
+CLIPS[registry]="Every contract it grades lives in one on-chain registry. Pass or fail, A through F, read live from the chain."
+CLIPS[composable]="Each grade binds to the agent's ERC-8004 identity. One call, isAttestedSafe, lets any contract refuse an agent that never passed."
+CLIPS[close]="Sentinel. Audit any agent, and prove it on-chain."
 
-ORDER=(hook audit onchain registry dev cta)
+ORDER=(money onchain registry composable close)
 for key in $ORDER; do
   out="audio/${key}.mp3"
   if [ -s "$out" ]; then echo "skip $key (exists)"; continue; fi
