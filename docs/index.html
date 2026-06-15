@@ -41,8 +41,10 @@
         </div>
         <div class="scan-meta">
           <button id="sample" class="link">try the audited sample</button>
+          <button id="paste-toggle" class="link">or paste source</button>
           <span id="status" class="status" role="status" aria-live="polite"></span>
         </div>
+        <textarea id="source" class="source-box" hidden placeholder="// paste Solidity source, then press Check" spellcheck="false"></textarea>
 
         <ul class="trust">
           <li>Registry <a id="reg-link" class="mono" target="_blank" rel="noopener"></a></li>
@@ -74,7 +76,10 @@
           <pre id="code" class="code" aria-hidden="false"></pre>
         </div>
 
+        <ul class="findings" id="findings" hidden></ul>
+
         <div class="receipt">
+          <div id="cred-note" class="cred-note" hidden></div>
           <div class="receipt-row"><span class="k">Report hash</span><code id="r-hash" class="mono">—</code></div>
           <div class="receipt-row"><span class="k">ERC-8004</span><code id="r-agent" class="mono">—</code></div>
           <div class="receipt-row"><span class="k">Attested</span><code id="r-time" class="mono">—</code></div>

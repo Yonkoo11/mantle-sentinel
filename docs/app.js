@@ -4,6 +4,7 @@ const RPC = "https://rpc.sepolia.mantle.xyz";
 const REGISTRY = "0xbCE17E724c0Cd038622a9C4299F86Caf411C1Fae";
 const EXPLORER_ADDR = "https://sepolia.mantlescan.xyz/address/";
 const SAMPLE = "0x469C46486d44eE02BB5A8d4FE341e55d13f5dF25";
+const BACKEND_URL = "https://yonko11-sentinel-audit-api.hf.space"; // live audit-any-contract API
 
 const ABI = [
   "function count(address) view returns (uint256)",
@@ -80,12 +81,72 @@ function renderLinks(address, agentId) {
   }
 }
 
+function gradeFor(sevN) { return GRADE[sevN] || GRADE[5]; }
+
+function enter(cred) { cred.classList.remove("enter"); void cred.offsetWidth; cred.classList.add("enter"); }
+
+// Render a fresh, off-chain audit returned by the backend (no on-chain receipt yet).
+function renderLive(data) {
+  const cred = $("credential");
+  const sevN = Number(data.highestSeverity || 0);
+  const grade = gradeFor(sevN);
+  cred.classList.remove("pass", "fail"); cred.classList.add(data.pass ? "pass" : "fail");
+  $("grade").textContent = grade.g;
+  $("grade").style.color = grade.tone === "bad" ? "var(--red)" : grade.tone === "med" ? "var(--amber)" : "var(--green)";
+  $("verdict-pill").textContent = data.pass ? "PASS" : "FAIL";
+  $("verdict-pill").className = "pill " + (data.pass ? "ok" : "bad");
+  $("score").textContent = data.score != null ? data.score : grade.s;
+  $("verdict-target").textContent = data.target && data.target.startsWith("0x") ? short(data.target) : (data.target || "pasted source");
+  renderSevStrip([
+    { label: "FINDINGS", n: String(data.vulnCount ?? (data.findings || []).length), cls: sevN >= 4 ? "high" : sevN === 3 ? "med" : "info" },
+    { label: "TOP", n: SEV[sevN] || sevN, cls: sevN >= 4 ? "high" : sevN === 3 ? "med" : "info" },
+    { label: "ENGINE", n: (data.engine || "slither").includes("+") ? "AI+static" : "static", cls: "info" },
+  ]);
+  // findings list instead of the baked code excerpt
+  $("excerpt").style.display = "none";
+  const fl = $("findings"); fl.replaceChildren(); fl.hidden = false;
+  for (const f of (data.findings || [])) {
+    const li = document.createElement("li");
+    const sev = document.createElement("span");
+    sev.className = "fsev " + (f.severity === "high" || f.severity === "critical" ? "high" : f.severity === "medium" ? "med" : "low");
+    sev.textContent = f.severity;
+    const txt = document.createElement("span");
+    txt.className = "ftxt";
+    txt.textContent = f.title + (f.lines && f.lines.length ? "  ·  L" + f.lines.join(",") : "");
+    li.append(sev, txt);
+    fl.appendChild(li);
+  }
+  $("r-hash").textContent = short(data.reportHash || "0x");
+  $("r-agent").textContent = "—"; $("r-time").textContent = "—"; $("r-auditor").textContent = "Sentinel (off-chain)";
+  const note = $("cred-note"); note.hidden = false;
+  note.textContent = "Fresh audit · not yet on-chain. Write it to the registry with the CLI to make it composable.";
+  $("links").replaceChildren();
+  enter(cred);
+}
+
+async function liveAudit(payload, label) {
+  if (!BACKEND_URL) { setStatus("No on-chain verdict yet (live audit backend not configured).", "warn"); return; }
+  setStatus(`No on-chain verdict — running a fresh audit${label ? " (" + label + ")" : ""}… first run can take ~30s.`, "loading");
+  try {
+    const res = await fetch(BACKEND_URL + "/audit", {
+      method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+    if (data.error) { setStatus(data.error, "warn"); return; }
+    renderLive(data);
+    setStatus("");
+  } catch (e) {
+    setStatus("Live audit failed: " + (e.message || e), "err");
+  }
+}
+
 async function check(address, isInitial) {
   const cred = $("credential");
+  if (!ethers.isAddress(address)) { setStatus("That doesn't look like a valid address.", "err"); return; }
   setStatus(isInitial ? "" : "Reading the verdict from Mantle…", isInitial ? "" : "loading");
   try {
     const n = await registry.count(address);
-    if (n === 0n) { setStatus("No audit on record for this contract yet.", "warn"); return; }
+    if (n === 0n) { await liveAudit({ address }, "by address"); return; }
     const a = await registry.latest(address);
     const sevN = Number(a.highestSeverity);
     const grade = GRADE[sevN] || GRADE[5];
@@ -114,6 +175,8 @@ async function check(address, isInitial) {
       ]);
       $("excerpt").style.display = "none";
     }
+    $("findings").hidden = true;
+    $("cred-note").hidden = true;
     renderLinks(address, a.erc8004AgentId);
 
     if (!isInitial) { cred.classList.remove("enter"); void cred.offsetWidth; cred.classList.add("enter"); }
@@ -123,9 +186,20 @@ async function check(address, isInitial) {
   }
 }
 
-$("check").addEventListener("click", () => check($("addr").value.trim(), false));
-$("addr").addEventListener("keydown", (e) => { if (e.key === "Enter") check($("addr").value.trim(), false); });
-$("sample").addEventListener("click", () => { $("addr").value = SAMPLE; check(SAMPLE, false); });
+function runScan() {
+  const box = $("source");
+  if (!box.hidden && box.value.trim()) { liveAudit({ source: box.value }, "pasted source"); return; }
+  check($("addr").value.trim(), false);
+}
+$("check").addEventListener("click", runScan);
+$("addr").addEventListener("keydown", (e) => { if (e.key === "Enter") runScan(); });
+$("sample").addEventListener("click", () => { $("source").hidden = true; $("addr").value = SAMPLE; check(SAMPLE, false); });
+$("paste-toggle").addEventListener("click", () => {
+  const box = $("source");
+  box.hidden = !box.hidden;
+  $("paste-toggle").textContent = box.hidden ? "or paste source" : "use an address instead";
+  if (!box.hidden) box.focus();
+});
 
 const reg = $("reg-link"); reg.textContent = short(REGISTRY); reg.href = EXPLORER_ADDR + REGISTRY;
 
