@@ -104,7 +104,8 @@ def audit(req: AuditReq):
     except Exception as e:
         return {"error": f"Could not compile/analyze the contract: {str(e)[:200]}"}
     llm = run_llm(source)
-    llm_active = bool(_llm_provider())
+    provider = _llm_provider()
+    llm_active = bool(provider)
 
     findings = merge_findings(static, llm)
     model = HUNYUAN_MODEL if llm_active else "slither-only"
@@ -115,7 +116,7 @@ def audit(req: AuditReq):
 
     return {
         "target": req.address or name,
-        "engine": "slither" + (" + hunyuan" if llm_active else ""),
+        "engine": "slither" + (f" + {provider}" if llm_active else ""),
         "pass": v["pass"],
         "grade": g[0],
         "score": g[1],
