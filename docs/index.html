@@ -3,75 +3,102 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sentinel — on-chain safety verdicts for AI agents</title>
-  <meta name="description" content="Sentinel: AI auditor for on-chain agents. Every verdict is written to Mantle and bound to the contract's ERC-8004 agent identity." />
-  <meta property="og:title" content="Sentinel — AI auditor for on-chain agents" />
-  <meta property="og:description" content="Paste a Mantle contract. Sentinel finds the bugs and writes a verifiable safety verdict on-chain, bound to the agent's ERC-8004 identity." />
+  <title>Sentinel — on-chain security verdicts for AI agents</title>
+  <meta name="description" content="Sentinel audits any Mantle contract and writes a pass/fail security verdict on-chain, bound to the contract's ERC-8004 agent identity." />
+  <meta property="og:title" content="Sentinel — on-chain security verdicts for AI agents" />
+  <meta property="og:description" content="Paste a Mantle contract. Sentinel finds the bugs and writes a verifiable verdict on-chain, bound to the agent's ERC-8004 identity." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://yonkoo11.github.io/mantle-sentinel/" />
   <meta name="twitter:card" content="summary_large_image" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2l11 4v8c0 7-4.7 12.5-11 16C9.7 26.5 5 21 5 14V6z' fill='%2365f0c8'/%3E%3Cpath d='M11 16l4 4 7-8' stroke='%23042018' stroke-width='2.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2l11 4v8c0 7-4.7 12.5-11 16C9.7 26.5 5 21 5 14V6z' fill='%235ef0c6'/%3E%3Cpath d='M11 16l4 4 7-8' stroke='%23061712' stroke-width='2.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="bg" aria-hidden="true"></div>
 
-  <header class="hero">
-    <div class="wrap">
-      <div class="topline">
-        <div class="brand"><span class="mark" aria-hidden="true"></span>Sentinel</div>
-        <div class="live"><span class="dot"></span>live on Mantle Sepolia</div>
-      </div>
-      <h1>The safety layer<br>for on-chain agents.</h1>
-      <p class="tag">Paste a Mantle contract. Sentinel finds the bugs and writes a pass/fail verdict
-        straight to the chain — bound to the agent's ERC-8004 identity, so its safety reputation travels with it.</p>
+  <header class="nav wrap">
+    <div class="brand"><span class="mark" aria-hidden="true"></span>Sentinel</div>
+    <div class="nav-right">
+      <span class="live"><span class="dot"></span>live · Mantle Sepolia</span>
+      <a href="https://github.com/Yonkoo11/mantle-sentinel" target="_blank" rel="noopener">GitHub ↗</a>
     </div>
   </header>
 
-  <main class="wrap">
-    <section class="panel" aria-label="Check a verdict">
-      <label for="addr">Read a contract's on-chain verdict</label>
-      <div class="row">
-        <input id="addr" type="text" inputmode="text" placeholder="0x… contract address" spellcheck="false" autocomplete="off" />
-        <button id="check">Check verdict</button>
+  <main>
+    <section class="hero wrap">
+      <div class="hero-left">
+        <p class="eyebrow">On-chain security verdicts · ERC-8004</p>
+        <h1>Audit any agent.<br>Prove it <span class="nb">on-chain.</span></h1>
+        <p class="lede">Sentinel reads a Mantle contract, finds the bugs, and writes a pass/fail
+          verdict to the chain — bound to the agent's ERC-8004 identity, so its safety reputation
+          is permanent and anyone can verify it.</p>
+
+        <div class="scan">
+          <span class="prompt">sentinel&nbsp;scan</span>
+          <input id="addr" type="text" placeholder="0x… contract address" spellcheck="false" autocomplete="off" aria-label="Contract address" />
+          <button id="check" aria-label="Check verdict">→</button>
+        </div>
+        <div class="scan-meta">
+          <button id="sample" class="link">try the audited sample</button>
+          <span id="status" class="status" role="status" aria-live="polite"></span>
+        </div>
+
+        <ul class="trust">
+          <li>Registry <a id="reg-link" class="mono" target="_blank" rel="noopener"></a></li>
+          <li>10 tests passing</li>
+          <li>MIT</li>
+        </ul>
       </div>
-      <button id="sample" class="link">↳ try the audited sample contract</button>
-      <p id="status" class="status" role="status" aria-live="polite"></p>
+
+      <!-- SIGNATURE: the verdict credential -->
+      <aside id="credential" class="credential" aria-label="Security verdict">
+        <div class="cred-top">
+          <div class="grade-wrap">
+            <span id="grade" class="grade">—</span>
+            <div class="grade-meta">
+              <span id="verdict-pill" class="pill"></span>
+              <span class="score-line"><span id="score">—</span><span class="score-max">/100</span></span>
+            </div>
+          </div>
+          <div class="cred-target">
+            <span class="k">Subject</span>
+            <code id="verdict-target" class="mono">—</code>
+          </div>
+        </div>
+
+        <div class="sevstrip" id="sevstrip"></div>
+
+        <div class="excerpt" id="excerpt">
+          <div class="excerpt-head"><span id="excerpt-label" class="mono">—</span></div>
+          <pre id="code" class="code" aria-hidden="false"></pre>
+        </div>
+
+        <div class="receipt">
+          <div class="receipt-row"><span class="k">Report hash</span><code id="r-hash" class="mono">—</code></div>
+          <div class="receipt-row"><span class="k">ERC-8004</span><code id="r-agent" class="mono">—</code></div>
+          <div class="receipt-row"><span class="k">Attested</span><code id="r-time" class="mono">—</code></div>
+          <div class="receipt-row"><span class="k">Auditor</span><code id="r-auditor" class="mono">—</code></div>
+          <div id="links" class="receipt-links"></div>
+        </div>
+      </aside>
     </section>
 
-    <section id="result" class="result hidden" aria-label="Verdict">
-      <div class="rail" aria-hidden="true"></div>
-      <div class="result-body">
-        <div class="verdict-head">
-          <span id="verdict-pill" class="pill"></span>
-          <span id="verdict-target" class="mono"></span>
-        </div>
-        <div class="grid">
-          <div class="cell"><div class="k">Findings</div><div class="v" id="r-count">—</div></div>
-          <div class="cell"><div class="k">Highest severity</div><div class="v" id="r-sev">—</div></div>
-          <div class="cell"><div class="k">ERC-8004 agent</div><div class="v" id="r-agent">—</div></div>
-          <div class="cell"><div class="k">Audited</div><div class="v" id="r-time">—</div></div>
-        </div>
-        <div class="hashrow"><span class="k">Report hash</span><code id="r-hash" class="mono">—</code></div>
-        <div class="hashrow"><span class="k">Auditor</span><code id="r-auditor" class="mono">—</code></div>
-        <div id="links" class="links"></div>
+    <section class="checks wrap" aria-label="What Sentinel checks">
+      <h2>Evidence, not adjectives.</h2>
+      <p class="section-lede">Every verdict is backed by a hashed report, the exact offending lines, and an
+        on-chain attestation you can re-verify. Nothing is taken on trust.</p>
+      <div class="ledger">
+        <div class="led"><span class="led-k mono">static</span><span class="led-v">Slither walks the bytecode for reentrancy, access-control and unchecked-call classes.</span></div>
+        <div class="led"><span class="led-k mono">reasoning</span><span class="led-v">An LLM pass on Tencent Hunyuan reviews logic the static layer can't model.</span></div>
+        <div class="led"><span class="led-k mono">anchor</span><span class="led-v">The full report is keccak256-hashed; only the hash + IPFS CID go on-chain.</span></div>
+        <div class="led"><span class="led-k mono">bind</span><span class="led-v">The verdict is written to the agent's ERC-8004 reputation — safety travels with identity.</span></div>
       </div>
-    </section>
-
-    <section class="how" aria-label="How it works">
-      <h2>How a verdict is made</h2>
-      <ol class="steps">
-        <li><span class="n">01</span><div><b>Read the code.</b> A hybrid engine — Slither static analysis plus an LLM reasoning pass on Tencent Hunyuan — finds the bugs with line numbers.</div></li>
-        <li><span class="n">02</span><div><b>Anchor the report.</b> The full report is hashed with keccak256, so the on-chain verdict is tamper-evident and falsifiable.</div></li>
-        <li><span class="n">03</span><div><b>Write the verdict.</b> A pass/fail attestation is written to the registry on Mantle — any contract can call <code>isAttestedSafe(addr)</code>.</div></li>
-        <li><span class="n">04</span><div><b>Bind to identity.</b> If the target is an ERC-8004 agent, the verdict is written to its reputation too — safety travels with the agent.</div></li>
-      </ol>
     </section>
   </main>
 
   <footer class="wrap">
-    <p>Registry <a id="reg-link" class="mono" target="_blank" rel="noopener"></a> on Mantle Sepolia
-      · <a href="https://github.com/Yonkoo11/mantle-sentinel" target="_blank" rel="noopener">open source (MIT)</a></p>
+    <span>Sentinel · Mantle Turing Test 2026</span>
+    <span><a href="https://github.com/Yonkoo11/mantle-sentinel" target="_blank" rel="noopener">open source (MIT)</a></span>
   </footer>
 
   <script src="vendor/ethers.umd.min.js"></script>
