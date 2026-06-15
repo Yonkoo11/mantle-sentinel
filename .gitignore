@@ -56,3 +56,12 @@ contracts/out/
 contracts/cache/
 contracts/broadcast/
 contracts/lib/
+
+# Video intermediates (keep final mp4 + scripts)
+video/frames/
+video/audio/
+video/composites/
+video/segments/
+video/node_modules/
+video/package*.json
+video/concat.txt
