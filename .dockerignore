@@ -1,0 +1,13 @@
+# keep the audit-API image build lean — only agent/ + backend/ are needed
+.git
+docs
+contracts/lib
+contracts/out
+contracts/cache
+contracts/broadcast
+agent/.venv
+agent/reports
+**/__pycache__
+**/*.pyc
+ai
+*.md

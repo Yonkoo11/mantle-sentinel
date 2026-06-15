@@ -1,0 +1,16 @@
+# One-click deploy for the Sentinel audit API on Render.
+# In Render: New + → Blueprint → connect this repo → it reads this file.
+# After deploy, set HUNYUAN_API_KEY in the service's Environment tab to turn on the AI pass.
+services:
+  - type: web
+    name: sentinel-audit-api
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: .
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: HUNYUAN_API_KEY
+        sync: false   # set this yourself in the Render dashboard (never in the repo)
+      - key: PORT
+        value: 8000

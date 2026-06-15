@@ -62,3 +62,11 @@ What Changed (Plain English): Added a second page — a live Registry that lists
 - [x] docs/registry.html + registry.js (chunked on-chain event reads, dedupe latest-per-contract)
 - [x] nav links Audit/Registry/GitHub on both pages
 - [x] 2 more real verdicts on-chain for a believable registry
+
+### Audit-any-address backend (2026-06-15)
+What Changed (Plain English): Built the service that lets Sentinel audit ANY contract on demand (not just ones we pre-audited). It's a small web API that runs the same Slither+AI engine and returns the grade + findings. Tested locally end-to-end (audited a pasted contract -> grade D, real reentrancy at lines 13-18). Ready to deploy to Render (render.yaml + Dockerfile added).
+- [x] backend/app.py (FastAPI /audit + /health), Dockerfile, render.yaml, .dockerignore
+- [x] tested locally: /audit returns verdict+findings; reuses agent/ pipeline
+- [ ] DEPLOY: user creates Render account -> Blueprint deploy (render.yaml) -> set HUNYUAN_API_KEY
+- [ ] then wire the frontend 'audit any address' to the live API URL + test round-trip
+- NOTE: by-address source fetch depends on Blockscout/Sourcify (Blockscout still 503); paste-source path tested + working.
